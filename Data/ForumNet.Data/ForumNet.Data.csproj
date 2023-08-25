@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200321110615_AddPostReactions.cs" />
+    <Compile Remove="Migrations\20200321110615_AddPostReactions.Designer.cs" />
+    <Compile Remove="Migrations\20200323112307_AddParentReply.cs" />
+    <Compile Remove="Migrations\20200323112307_AddParentReply.Designer.cs" />
+    <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.cs" />
+    <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.Designer.cs" />
+    <Compile Remove="Migrations\20200404104012_AddMessages.cs" />
+    <Compile Remove="Migrations\20200404104012_AddMessages.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ForumNet.Common\ForumNet.Common.csproj" />
+    <ProjectReference Include="..\ForumNet.Data.Models\ForumNet.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>

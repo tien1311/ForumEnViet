@@ -1,0 +1,85 @@
+﻿@page
+@using ForumNet.Data.Models.Enums
+@inject UserManager<ForumUser> UserManager
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form id="profile-form"
+              class="form-default"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All"></div>
+
+            <div class="tt-form-upload">
+                <div class="row no-gutter">
+                    <div class="col-auto">
+                        <div class="tt-avatar">
+
+                            @{
+                                var user = await UserManager.GetUserAsync(this.User);
+                                var profilePicture = user.ProfilePicture;
+                                @if (profilePicture.StartsWith("#icon-ava"))
+                                {
+                                    <svg style="width: 60px; height: 60px;">
+                                        <use xlink:href="@profilePicture"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@profilePicture"
+                                         alt="avatar"
+                                         class="tt-icon"
+                                         width="60"
+                                         height="60"
+                                         style="border-radius: 50%" />
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-auto ml-auto">
+                        <label asp-for="Input.ImageFile" class="btn btn-primary">Upload Picture</label>
+                        <input type="file" asp-for="Input.ImageFile" onchange="form.submit()" class="btn btn-primary" hidden />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.BirthDate"></label>
+                <input asp-for="Input.BirthDate" class="form-control" />
+                <span asp-validation-for="Input.BirthDate"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                <select class="form-control" asp-for="Input.Gender">
+                    <option disabled selected>Please select...</option>
+                    <option value="@GenderType.NotKnown">Not known</option>
+                    <option value="@GenderType.Male">Male</option>
+                    <option value="@GenderType.Female">Female</option>
+                </select>
+                <span asp-validation-for="Input.Gender"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Biography"></label>
+                <textarea asp-for="Input.Biography" class="form-control" placeholder="Describe yourself..."></textarea>
+                <span asp-validation-for="Input.Biography"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

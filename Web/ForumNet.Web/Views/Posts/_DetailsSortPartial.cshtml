@@ -1,0 +1,44 @@
+﻿@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
+
+<div class="row-object-inline form-default">
+    <h6 class="tt-title">Sắp xếp câu trả lời theo:</h6>
+    <ul class="tt-list-badge tt-size-lg">
+        @{
+            this.Context.Request.Query.TryGetValue("sort", out var value);
+            if (value == "most reacted")
+            {
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Gần đây</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-color02 tt-badge">Tương tác</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Dài nhất</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Ngắn nhất</span></a></li>
+            }
+            else if (value == "longest")
+            {
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Gần đây</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Tương tác</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-color02 tt-badge">Dài nhất</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Ngắn nhất</span></a></li>
+            }
+            else if (value == "shortest")
+            {
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Gần đây</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Tương tác</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Dài nhất</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-color02 tt-badge">Ngắn nhất</span></a></li>
+            }
+            else
+            {
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-color02 tt-badge">Gần đây</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Tương tác</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Dài nhất</span></a></li>
+                <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Ngắn nhất</span></a></li>
+            }
+        }
+    </ul>
+    <select class="tt-select form-control" onchange="location = this.value">
+        <option value="/Posts/Details/@Model.Id?sort=recent">Gần đây</option>
+        <option value="/Posts/Details/@Model.Id?sort=most%20reacted">Tương tác</option>
+        <option value="/Posts/Details/@Model.Id?sort=longest">Dài nhất</option>
+        <option value="/Posts/Details/@Model.Id?sort=shortest">Ngắn nhất</option>
+    </select>
+</div>

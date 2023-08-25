@@ -1,0 +1,121 @@
+﻿@using ForumNet.Web.Infrastructure.Extensions
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - @ForumNet.Common.GlobalConstants.SystemName</title>
+    <meta name="description" content="@ForumNet.Common.GlobalConstants.SystemName">
+    <meta name="keywords" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/selectize/dist/css/selectize.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <!-- tt-mobile menu -->
+    <nav class="panel-menu" id="mobile-menu">
+        <ul>
+        </ul>
+        <div class="mm-navbtn-names">
+            <div class="mm-closebtn">
+                Đóng
+                <div class="tt-icon">
+                    <svg><use xlink:href="#icon-cancel"></use></svg>
+                </div>
+            </div>
+            <div class="mm-backbtn">Quay lại</div>
+        </div>
+    </nav>
+    <!-- /tt-mobile menu -->
+    <header id="tt-header">
+        <div class="container">
+            <div class="row tt-row no-gutters">
+                <div class="col-auto">
+                    <!-- toggle mobile menu -->
+                    <a class="toggle-mobile-menu" href="#">
+                        <svg class="tt-icon"><use xlink:href="#icon-menu_icon"></use></svg>
+                    </a>
+                    <!-- /toggle mobile menu -->
+                    <div class="tt-logo">
+                        <a asp-area="" asp-controller="Posts" asp-action="Trending"><img src="~/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="tt-desktop-menu">
+                        <nav>
+                            <ul>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Trending"><span>Trang chủ</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Theo dõi</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>Bài mới</span></a></li>
+                                <li>
+                                    <a href="#"><span>Xem thêm</span></a>
+                                    <ul>
+                                        @if (this.User.IsAdministrator())
+                                        {
+                                            <li><a asp-area="Administration" asp-controller="PostReports" asp-action="All"><span>Báo cáo</span></a></li>
+                                            <li><a asp-area="Administration" asp-controller="Tags" asp-action="All"><span>Tags</span></a></li>
+                                            <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Danh mục</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-area="" asp-controller="Tags" asp-action="All"><span>Tags</span></a></li>
+                                            <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Danh mục</span></a></li>
+                                        }
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="Chat" asp-action="All" asp-route-id="@this.User.GetId()">
+                                                    Tin nhắn
+                                                </a>
+                                            </li>
+                                        }
+                                        <li><a asp-area="" asp-controller="Home" asp-action="About"><span>Về chúng tôi</span></a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Guidelines">Hướng dẫn</a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Riêng tư</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <partial name="_LayoutSearchPartial" />
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </header>
+
+    <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-btn-create-topic">
+        <span class="tt-icon">
+            <svg><use xlink:href="#icon-create_new"></use></svg>
+        </span>
+    </a>
+
+    <main id="tt-pageContent" class="tt-offset-small">
+        @RenderBody()
+    </main>
+
+    <partial name="_SymbolsPartial" />
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/js/bundle.min.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/lib/selectize/dist/js/standalone/selectize.min.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea#customTextArea',
+            height: 300,
+            plugins: [
+                'lists advlist link autolink image media preview hr anchor',
+                'code codesample paste',
+                'table emoticons help'
+            ],
+            toolbar: [
+                'bold italic | emoticons link codesample image media | hr bullist numlist alignleft aligncenter alignright alignjustify |'
+            ],
+            link_default_protocol: "https",
+            menubar: false
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

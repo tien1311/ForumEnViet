@@ -1,0 +1,118 @@
+﻿@page
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div class="container">
+    <div class="tt-loginpages-wrapper">
+        <div class="tt-loginpages">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="tt-block-title">
+                <img src="~/images/logo.png" alt="logo">
+                <div class="tt-title">
+                    Welcome to Forum.NET
+                </div>
+                <div class="tt-description">
+                    Join the forum to unlock true power of community.
+                </div>
+            </a>
+            <form class="form-default" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" placeholder="Username..." />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.BirthDate"></label>
+                    <input asp-for="Input.BirthDate" class="form-control" />
+                    <span asp-validation-for="Input.BirthDate"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email..." />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password..." />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password..." />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary btn-block">Sign up</button>
+                </div>
+                <p>Or sign up with social network</p>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <a id="facebook-button" href="#" class="btn btn-color01 btn-secondary btn-block">
+                                <i>
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook-f-brands"></use>
+                                    </svg>
+                                </i>
+                                Facebook
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <a id="google-button" href="#" class="btn btn-color02 btn-block">
+                                <i class="fab fa-google"></i>
+                                &nbsp;
+                                Google
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <p>Already have an account? <a asp-area="Identity" asp-page="/Account/Login">Login here</a></p>
+                <div class="tt-notes">
+                    By signing up, signing in or continuing, I agree to
+                    Forum.NET’s <a asp-area="" asp-controller="Home" asp-action="Guidelines" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
+                </div>
+            </form>
+
+            <form style="display: none" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div>
+                    @{
+                        var fbProvider = Model.ExternalLogins?.FirstOrDefault(l => l.DisplayName == "Facebook");
+                        var googleProvider = Model.ExternalLogins?.FirstOrDefault(l => l.DisplayName == "Google");
+                    }
+                    @if (fbProvider != null && googleProvider != null)
+                    {
+                        <button id="fb-form-button" type="submit" name="provider" value="@fbProvider.Name"></button>
+                        <button id="google-form-button" type="submit" name="provider" value="@googleProvider.Name"></button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#facebook-button").on("click", function () {
+            document.getElementById('fb-form-button').click();
+        });
+        $("#google-button").on("click", function () {
+            document.getElementById('google-form-button').click();
+        });
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: '/Identity/Account/Register' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

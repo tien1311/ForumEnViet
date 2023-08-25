@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-ForumNet.Web-9AFD6084-A346-48A5-9D99-49AE2D326070</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.447" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.4.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ForumNet.Web.InputModels\ForumNet.Web.InputModels.csproj" />
+    <ProjectReference Include="..\ForumNet.Web.ViewModels\ForumNet.Web.ViewModels.csproj" />
+  </ItemGroup>
+  
+</Project>
