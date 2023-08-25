@@ -1,6 +1,6 @@
 # ForumNet
 
-<p>Forum application built for <a href="https://softuni.bg/trainings/2796/asp-net-core-february-2020">ASP.NET Core course</a> at SoftUni</p>
+<p>Forum application built for <a href="https://softuni.bg/trainings/2796/asp-net-core-february-2020">ASP.NET Core course</a> at EnViet</p>
 
 [![Build Status](https://dev.azure.com/Tsenkow/ForumNet/_apis/build/status/ForumNet-Azure%20Web%20App%20for%20ASP.NET-CI?branchName=master)](https://dev.azure.com/Tsenkow/ForumNet/_build/latest?definitionId=4&branchName=master) [![Build status](https://ci.appveyor.com/api/projects/status/y8re5a60joksloym?svg=true)](https://ci.appveyor.com/project/kalintsenkov/forumnet) [![Build Status](https://travis-ci.org/kalintsenkov/ForumNet.svg?branch=master)](https://travis-ci.org/kalintsenkov/ForumNet) [![GitHub license](https://img.shields.io/github/license/kalintsenkov/ForumNet?color=brightgreen)](https://github.com/kalintsenkov/ForumNet/blob/master/LICENSE)
 # 🛠 Built with:
@@ -24,6 +24,4 @@
 * [Moq](https://github.com/moq/moq)
 * [FluentAssertions](https://github.com/fluentassertions/fluentassertions)
 
-# License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
